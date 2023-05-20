@@ -15,6 +15,7 @@
     "vite-plugin-windicss": "^1.8.10"
   },
   "dependencies": {
+    "@thisbeyond/solid-dnd": "^0.7.4",
     "solid-js": "^1.6.10"
   }
 }

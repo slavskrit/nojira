@@ -1,3 +1,7 @@
+import {
+  createDraggable,
+} from "@thisbeyond/solid-dnd";
+import { createSignal, onMount, For, Show } from "solid-js";
 import type { Component } from 'solid-js';
 
 export enum TaskStatus {
@@ -7,6 +11,7 @@ export enum TaskStatus {
 }
 
 export type TaskModel = {
+  id: number;
   name: string;
   description: string;
   status: TaskStatus;
@@ -14,8 +19,10 @@ export type TaskModel = {
 
 const Task: Component<TaskModel> = (props) => {
 
+  const draggable = createDraggable(props.id);
+
   return (
-    <div class="rounded overflow-hidden shadow-lg">
+    <div use:draggable class="rounded overflow-hidden shadow-lg m-1" classList={{ "opacity-25": draggable.isActiveDraggable }}>
       <div class="px-2 py-4">
         <div class="font-bold text-xl mb-2">{props.name}</div>
         <p class="text-gray-700 text-base">{props.description}</p>
