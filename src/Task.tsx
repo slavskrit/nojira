@@ -1,8 +1,9 @@
 import type { Component } from 'solid-js';
 
 export enum TaskStatus {
-  DONE,
+  TODO,
   ACTIVE,
+  DONE,
 }
 
 export type TaskModel = {
