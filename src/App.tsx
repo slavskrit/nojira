@@ -15,7 +15,7 @@ import { TaskModel, TaskStatus } from './Task';
 import Task from "./Task";
 
 const Droppable = (props) => {
-  const droppable = createDroppable(props.id);
+  const droppable = createDroppable(props.status);
   return (
     <div
       use:droppable
@@ -46,14 +46,13 @@ const App: Component = () => {
     if (draggable && droppable) {
       const taskId = draggable.id;
       const boardId = droppable.id;
-      const tasksToBeUpdated = tasks();
-      const task = tasksToBeUpdated.splice(tasks().findIndex(x => x.id == taskId), 1)[0];
-      task.status = boardId;
-      console.log(task);
-      tasksToBeUpdated.push(task);
-      console.log(tasksToBeUpdated);
-
-      setTasks(tasksToBeUpdated);
+      console.log(taskId, boardId);
+      const taskIndex = tasks().findIndex(x => x.id === taskId);
+      if (taskIndex !== -1) {
+        const t = tasks().splice(taskIndex, 1);
+        t[0].status = boardId;
+        setTasks([...tasks(), t[0]]);
+      }
     }
   };
 
@@ -63,20 +62,19 @@ const App: Component = () => {
         onDragStart={onDragStart}
         onDragEnd={onDragEnd}
         collisionDetector={closestCenter}>
-      <DragDropDebugger />
       <DragDropSensors />
-      <div class="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3">
-          <Droppable id={1}>
+        <div class="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3">
+          <Droppable status={TaskStatus.TODO}>
           <For each={tasks().filter(x => x.status == TaskStatus.TODO)} fallback={<p>Loading...</p>}>{task =>
             <Task {...task} />
           }</For>
         </Droppable>
-        <Droppable id={2}>
+        <Droppable status={TaskStatus.ACTIVE}>
         <For each={tasks().filter(x => x.status == TaskStatus.ACTIVE)} fallback={<p>Loading...</p>}>{task =>
             <Task {...task} />
           }</For>
         </Droppable>
-        <Droppable id={3}>
+        <Droppable status={TaskStatus.DONE}>
           <For each={tasks().filter(x => x.status == TaskStatus.DONE)} fallback={<p>Loading...</p>}>{task =>
             <Task {...task} />
           }</For>
