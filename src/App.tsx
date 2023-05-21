@@ -72,17 +72,17 @@ const App: Component = () => {
         <DragDropSensors />
         <div class="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3">
           <Droppable status={TaskStatus.TODO}>
-          <For each={tasks().filter(x => x.status == TaskStatus.TODO)} fallback={<p>Loading...</p>}>{task =>
+          <For each={tasks().filter(x => x.status == TaskStatus.TODO)} fallback={<p></p>}>{task =>
               <Task {...task} update={setUpdate} />
-          }</For>
+            }</For>
         </Droppable>
         <Droppable status={TaskStatus.ACTIVE}>
-        <For each={tasks().filter(x => x.status == TaskStatus.ACTIVE)} fallback={<p>Loading...</p>}>{task =>
+        <For each={tasks().filter(x => x.status == TaskStatus.ACTIVE)} fallback={<p></p>}>{task =>
             <Task {...task} update={setUpdate}/>
           }</For>
         </Droppable>
         <Droppable status={TaskStatus.DONE}>
-          <For each={tasks().filter(x => x.status == TaskStatus.DONE)} fallback={<p>Loading...</p>}>{task =>
+          <For each={tasks().filter(x => x.status == TaskStatus.DONE)} fallback={<p></p>}>{task =>
             <Task {...task} update={setUpdate}/>
           }</For>
         </Droppable>
