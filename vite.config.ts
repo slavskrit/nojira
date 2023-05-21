@@ -1,20 +1,21 @@
-import { defineConfig } from 'vite';
-import solidPlugin from 'vite-plugin-solid';
-import WindiCSS from 'vite-plugin-windicss';
+import { defineConfig } from "vite";
+import solidPlugin from "vite-plugin-solid";
+import WindiCSS from "vite-plugin-windicss";
 
 export default defineConfig({
   plugins: [
     solidPlugin(),
     WindiCSS({
       scan: {
-        fileExtensions: ['html', 'js', 'ts', 'jsx', 'tsx'],
+        fileExtensions: ["html", "js", "ts", "jsx", "tsx"],
       },
     }),
   ],
+  base: "./",
   server: {
     port: 3000,
   },
   build: {
-    target: 'esnext',
+    target: "esnext",
   },
 });
