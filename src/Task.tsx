@@ -1,7 +1,6 @@
 import {
   createDraggable,
 } from "@thisbeyond/solid-dnd";
-import { createSignal } from "solid-js";
 import type { Component } from 'solid-js';
 
 export enum TaskStatus {

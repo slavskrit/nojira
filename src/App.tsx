@@ -6,7 +6,7 @@ import {
 } from "@thisbeyond/solid-dnd";
 import { createSignal, onMount, For,createResource, Show, createEffect } from "solid-js";
 import type { Component } from 'solid-js';
-import { createLocalStore, getTokenFromLocalStorage, removeIndex } from "./utils";
+import { getTokenFromLocalStorage } from "./utils";
 import { TaskModel, TaskStatus } from './Task';
 import Task from "./Task";
 
@@ -28,11 +28,9 @@ const App: Component = () => {
   const [tasks, setTasks] = createSignal<Array<TaskModel>>([]);
   const [updated, setUpdate] = createSignal(null);
   const [activeItem, setActiveItem] = createSignal(null);
-  // const [todos, setTodos] = createLocalStore<TodoItem[]>("todos", []);
-  // const [user] = createResource(userId, fetchUser);
 
-  createEffect(() => {
-    let token = getTokenFromLocalStorage();
+  createEffect(async () => {
+    let token = await getTokenFromLocalStorage();
     console.log(token);
   });
 
