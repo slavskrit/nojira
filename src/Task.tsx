@@ -1,7 +1,7 @@
 import {
   createDraggable,
 } from "@thisbeyond/solid-dnd";
-// import { createSignal, onMount, For, Show } from "solid-js";
+import { createSignal } from "solid-js";
 import type { Component } from 'solid-js';
 
 export enum TaskStatus {
@@ -17,14 +17,24 @@ export type TaskModel = {
   status: TaskStatus;
 };
 
-const Task: Component<TaskModel> = (props) => {
+type TaskProps = TaskModel & {
+  update: (TaskModel) => () => void;
+}
 
+const Task: Component<TaskProps> = (props) => {
   const draggable = createDraggable(props.id);
 
   return (
     <div use:draggable class="my-1 mx-2 border-dotted border-2 border-sky-500 cursor-pointer font-mono rounded-lg overflow-hidden">
       <div class="px-2 py-4">
-        <div class="font-bold text-xl mb-2">{props.name}</div>
+        <div class="font-bold text-xl mb-2"
+          contentEditable
+          onblur={(e) => {
+            const task = { ...props };
+            task.name = e.currentTarget.innerText;
+            props.update(task);
+          }}
+        >{props.name}</div>
         <p class="text-gray-700 text-base">{props.description}</p>
       </div>
       {/* <div class="px-6 pt-4 pb-2">
