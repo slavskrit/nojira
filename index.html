@@ -10,11 +10,13 @@
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
     <div id="g_id_onload"
-      data-client_id="292600951329-kcpi0ppdll1ccpfb8b724nq0dnff6pcr.apps.googleusercontent.com"
-      data-context="use"
-      data-ux_mode="popup"
-      data-login_uri="https://slavskrit.github.io/nojira/"
-      data-itp_support="true">
+    data-client_id="292600951329-kcpi0ppdll1ccpfb8b724nq0dnff6pcr.apps.googleusercontent.com"
+    data-context="use"
+    data-ux_mode="popup"
+    data-callback="handleToken"
+    data-nonce=""
+    data-auto_select="true"
+    data-itp_support="true">
     </div>
 
     <div class="g_id_signin"
@@ -27,5 +29,11 @@
     </div>
     <script src="/src/index.tsx" type="module"></script>
     <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script type="text/javascript">
+      function handleToken(token){
+        localStorage.setItem("auth.client_id", token.client_id);
+        localStorage.setItem("auth.credential", token.credential);
+      }
+    </script>
   </body>
 </html>
